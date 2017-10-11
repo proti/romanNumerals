@@ -16,21 +16,35 @@ let RomanNumber = (() => {
     ];
     //
     return function (numToConvert) {
-        this.numToConvert = numToConvert;
-        this.result = 0;
 
-        this.toInt = () => {
+        let convertToArabic = (n) => {
             NUMBERS.some(numObj => {
                 if (n.indexOf(numObj.roman) === 0) {
                     this.result += numObj.arabic;
                     n = n.replace(numObj.roman, '');
+                    convertToArabic(n);
                     return true;
                 }
             });
+        }
+
+        //public methods
+        this.numToConvert = numToConvert;
+        this.toInt = () => {
+            this.result = 0;
+            convertToArabic(this.numToConvert);
+            return this.result;
         };
 
         this.toString = () => {
-
+            this.result = '';
+            NUMBERS.some(numObj => {
+                if (n >= numObj.arabic) {
+                    n -= numObj.arabic;
+                    this.result += numObj.roman;
+                    
+                }
+            });
         };
     }
 })();
