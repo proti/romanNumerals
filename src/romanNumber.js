@@ -106,3 +106,9 @@ let RomanNumber = (() => {
         };
     }
 })();
+
+//Are we in Node? - should rewrite this file to be a module. 
+//However this solution works for both browser and Node
+if (typeof module != 'undefined' && module.exports) {
+    module.exports = RomanNumber;
+}
