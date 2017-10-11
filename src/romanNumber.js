@@ -93,7 +93,6 @@ let RomanNumber = (() => {
             isInRange(this.numToConvert);
             isValid(this.numToConvert);
             if (isNumeric(this.numToConvert)) {
-                //need more robust validation
                 return this.numToConvert;
             }
 
