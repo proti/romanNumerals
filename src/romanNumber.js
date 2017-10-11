@@ -41,14 +41,24 @@ let RomanNumber = (() => {
                 }
             });
         }
-
+        //validators
         let isNumeric = (n) => {
             return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+        let isNotEmpty = (n) => {
+            if (!n && n !== 0) throw new Error('Value required');
+            return true;
+        }
+        let isInRange = (n) => {
+            if (isNumeric(n) && n <= 0 || n > 3999) throw new Error('Invalid range');
+            return true;
         }
 
         //public methods
         this.numToConvert = numToConvert;
         this.toInt = () => {
+            isNotEmpty(this.numToConvert);
+            isInRange(this.numToConvert);
             if (isNumeric(this.numToConvert)) {
                 return this.numToConvert;
             }
@@ -58,6 +68,11 @@ let RomanNumber = (() => {
         };
 
         this.toString = () => {
+            isNotEmpty(this.numToConvert);
+            isInRange(this.numToConvert);
+            if (!isNumeric(this.numToConvert)) {
+                return this.numToConvert.toUpperCase();
+            }
             this.result = '';
             convertToRoman(this.numToConvert);
             return this.result;
