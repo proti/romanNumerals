@@ -1,4 +1,5 @@
 let RomanNumber = (() => {
+    const VALID_MAX_CHARS = 3; //max consecutive copies of the same letter    
     const NUMBERS = [
         { 'roman': 'M', 'arabic': 1000 },
         { 'roman': 'CM', 'arabic': 900 },
@@ -58,16 +59,18 @@ let RomanNumber = (() => {
             return true;
         }
         let isValidCharCount = (n) => {
-            let charsCountObj = n.toString().split('').reduce((curr, next) => {
-                if (!curr[next]) {
-                    curr[next] = 1;
-                } else {
-                    curr[next] += 1;
-                }
-                return curr;
-            }, {});
+            let charsCountObj = n.toString().split('')
+                .reduce((curr, next) => {
+                    if (!curr[next]) {
+                        curr[next] = 1;
+                    } else {
+                        curr[next] += 1;
+                    }
+                    return curr;
+                }, {});
 
-            return Object.keys(charsCountObj).every(char => charsCountObj[char] <= 3)
+            return Object.keys(charsCountObj)
+                .every(char => charsCountObj[char] <= VALID_MAX_CHARS)
         }
 
         let isValid = (n) => {
@@ -95,7 +98,7 @@ let RomanNumber = (() => {
             if (!isNumeric(this.numToConvert)) {
                 return this.numToConvert.toUpperCase();
             }
-            
+
             this.result = '';
             convertToRoman(this.numToConvert);
             return this.result;
