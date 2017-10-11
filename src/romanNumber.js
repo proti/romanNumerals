@@ -37,12 +37,16 @@ let RomanNumber = (() => {
         }
 
         let convertToArabic = (n) => {
-            NUMBERS.some((numObj) => {
+            NUMBERS.some((numObj, index) => {
                 if (n.indexOf(numObj.roman) === 0) {
                     this.result += numObj.arabic;
                     n = n.replace(numObj.roman, '');
                     convertToArabic(n);
                     return true;
+                }
+                if (n && index === NUMBERS.length - 1) {
+                    this.result = ''
+                    throw new Error('Invalid value');
                 }
             });
         }
@@ -72,9 +76,14 @@ let RomanNumber = (() => {
             return Object.keys(charsCountObj)
                 .every(char => charsCountObj[char] <= VALID_MAX_CHARS)
         }
-
+        let isValidRoman = (n) => {
+            if (isNumeric(n)) return true;
+            return n.split('').every(char => {
+                return NUMBERS.some(numObj => char.indexOf(numObj.roman) === 0)
+            });
+        }
         let isValid = (n) => {
-            if (!isValidCharCount(n)) throw new Error('Invalid value');
+            if (!isValidCharCount(n) || !isValidRoman(n)) throw new Error('Invalid value');
         }
 
         //public methods
@@ -96,6 +105,7 @@ let RomanNumber = (() => {
         this.toString = () => {
             isNotEmpty(this.numToConvert);
             isInRange(this.numToConvert);
+            isValid(this.numToConvert);
             if (!isNumeric(this.numToConvert)) {
                 return this.numToConvert.toUpperCase();
             }

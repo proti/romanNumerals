@@ -18,7 +18,7 @@ const isItMMCMXCIX = (num) => new RomanNumber(num).toString() === 'MMCMXCIX';
 const isItMMM = (num) => new RomanNumber(num).toString() === 'MMM';
 const isIt10000Roman = (num) => new RomanNumber(num).toString();
 const isIt129 = (num) => new RomanNumber(num).toInt() === 129;
-const isItInValid = (num) => new RomanNumber('C1X').toString();
+const isItValid = (num) => new RomanNumber('C1X').toString();
 const isItInValidStrError = (num) => new RomanNumber('error').toString();
 const isIt1582 = (num) => new RomanNumber(num).toInt() === 1582;
 const isIt2080 = (num) => new RomanNumber(num).toInt() === 2080;
@@ -26,10 +26,10 @@ const isItValidRomanNumber = (num) => new RomanNumber('MMMMCMXCIX').toString();
 const isItValidRomanNumber2 = (num) => new RomanNumber('MMMMDMXCIX').toString();
 
 const funcArr = [
-    [null, isItNull], ['', isItEmptyStr], [0, isItZero], [1, isItOne], [3, isItThree], [4, isItFour], [5, isItFive],
+    [null, isItNull], ['', isItEmptyStr], [0, isItZero], [1, isItI], [3, isItIII], [4, isItIV], [5, isItV],
     ['I', isItOne], ['III', isItThree], ['IIII', isItInValidFour], ['IV', isItFour], ['V', isItFive],
     [1968, isItMCMLXVIII], ['173', isItCLXXIII], [2999, isItMMCMXCIX], [3000, isItMMM], [10000, isIt10000Roman], ['CXXIX', isIt129],
-    ['C1X', isItInValid], ['error', isItInValidStrError], ['MDLXXXII', isIt1582], ['MMLXXX', isIt2080],
+    ['C1X', isItValid], ['error', isItInValidStrError], ['MDLXXXII', isIt1582], ['MMLXXX', isIt2080],
     ['MMMMCMXCIX', isItValidRomanNumber], ['MMMMDMXCIX', isItValidRomanNumber2]
 ];
 
@@ -38,9 +38,7 @@ testRoman = () => {
     funcArr.forEach(element => {
         let testChar = element[0];
         let funcTest = element[1];
-
         try {
-          
             console.log(`Is %s %s?`, testChar, funcTest.name, (funcTest(testChar)) ? 'YES' : 'NO');
         }
         catch (e) {
