@@ -17,6 +17,20 @@ let RomanNumber = (() => {
     //
     return function (numToConvert) {
 
+        let convertToRoman = (n) => {
+            NUMBERS.filter((numObj) => n >= numObj.arabic)
+                .some(numObj => {
+                    if (n >= numObj.arabic) {
+                        n -= numObj.arabic;
+                        this.result += numObj.roman;
+                        if (n > 0) {
+                            convertToRoman(n);
+                            return true;
+                        }
+                    }
+                })
+        };
+
         let convertToArabic = (n) => {
             NUMBERS.some(numObj => {
                 if (n.indexOf(numObj.roman) === 0) {
@@ -38,13 +52,8 @@ let RomanNumber = (() => {
 
         this.toString = () => {
             this.result = '';
-            NUMBERS.some(numObj => {
-                if (n >= numObj.arabic) {
-                    n -= numObj.arabic;
-                    this.result += numObj.roman;
-                    
-                }
-            });
+            convertToRoman(this.numToConvert);
+            return this.result;
         };
     }
 })();
