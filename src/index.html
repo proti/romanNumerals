@@ -1,13 +1,16 @@
 <html>
-    
-    <body>
-        <div>RomanNumerals</div>
-        <script src="romanNumber.js"></script>
-        <script>
-            let a = new RomanNumber(3999);
-            console.log('toInt:', a.toInt());
-            console.log('toString:', a.toString());
-        </script>
-    </body>
-    
-    </html>
+
+<body>
+    <div>RomanNumerals</div>
+    <script src="romanNumber.js"></script>
+    <script>
+        let a = new RomanNumber(3999);
+        console.log('toInt:', a.toInt());
+        console.log('toString:', a.toString());
+        let b = RomanNumber('XXX');
+        console.log('b toInt:', b.toInt());
+        console.log('b toString:', b.toString());
+    </script>
+</body>
+
+</html>

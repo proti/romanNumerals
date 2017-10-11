@@ -17,6 +17,10 @@ let RomanNumber = (() => {
     //
     return function (numToConvert) {
 
+        if (!(this instanceof RomanNumber)) {
+            return new RomanNumber(numToConvert);
+        }
+
         let convertToRoman = (n) => {
             NUMBERS.filter((numObj) => n >= numObj.arabic)
                 .some(numObj => {
@@ -53,15 +57,33 @@ let RomanNumber = (() => {
             if (isNumeric(n) && n <= 0 || n > 3999) throw new Error('Invalid range');
             return true;
         }
+        let isValidCharCount = (n) => {
+            let charsCountObj = n.toString().split('').reduce((curr, next) => {
+                if (!curr[next]) {
+                    curr[next] = 1;
+                } else {
+                    curr[next] += 1;
+                }
+                return curr;
+            }, {});
+
+            return Object.keys(charsCountObj).every(char => charsCountObj[char] <= 3)
+        }
+
+        let isValid = (n) => {
+            if (!isValidCharCount(n)) throw new Error('Invalid value');
+        }
 
         //public methods
         this.numToConvert = numToConvert;
         this.toInt = () => {
             isNotEmpty(this.numToConvert);
             isInRange(this.numToConvert);
+            isValid(this.numToConvert);
             if (isNumeric(this.numToConvert)) {
                 return this.numToConvert;
             }
+
             this.result = 0;
             convertToArabic(this.numToConvert.toString().toUpperCase());
             return this.result;
@@ -73,6 +95,7 @@ let RomanNumber = (() => {
             if (!isNumeric(this.numToConvert)) {
                 return this.numToConvert.toUpperCase();
             }
+            
             this.result = '';
             convertToRoman(this.numToConvert);
             return this.result;
