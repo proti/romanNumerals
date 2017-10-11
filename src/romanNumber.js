@@ -28,11 +28,11 @@ let RomanNumber = (() => {
                             return true;
                         }
                     }
-                })
-        };
+                });
+        }
 
         let convertToArabic = (n) => {
-            NUMBERS.some(numObj => {
+            NUMBERS.some((numObj) => {
                 if (n.indexOf(numObj.roman) === 0) {
                     this.result += numObj.arabic;
                     n = n.replace(numObj.roman, '');
@@ -46,7 +46,7 @@ let RomanNumber = (() => {
         this.numToConvert = numToConvert;
         this.toInt = () => {
             this.result = 0;
-            convertToArabic(this.numToConvert);
+            convertToArabic(this.numToConvert.toString().toUpperCase());
             return this.result;
         };
 
