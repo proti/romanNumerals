@@ -42,9 +42,16 @@ let RomanNumber = (() => {
             });
         }
 
+        let isNumeric = (n) => {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
         //public methods
         this.numToConvert = numToConvert;
         this.toInt = () => {
+            if (isNumeric(this.numToConvert)) {
+                return this.numToConvert;
+            }
             this.result = 0;
             convertToArabic(this.numToConvert.toString().toUpperCase());
             return this.result;
